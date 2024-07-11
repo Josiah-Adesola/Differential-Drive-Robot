@@ -1,0 +1,60 @@
+<?xml version="1.0"?> 
+<!-- ##################### -->
+<!-- GAZEBO ADDITIONAL DESCRIPITION OF THE DIFFERENTIAL  DRIVE ROBOT -->
+<!-- Taught by Alex and implemented by Josiah-->
+<!-- July 2024 -->
+<!--############################-->
+<robot>
+<!-- Everything is describe here -->
+<!-- http://classic.gazebosim.org/tutorials?tut=ros_urdf&cat=connect_ros -->
+<!--mu1 and mu2 are friction coefficients-->
+<gazebo reference="body_link">
+<mu1>0.2</mul>
+<mu2>0.2</mul>
+<material>Gazebo/Black</material>
+</gazebo>
+
+<gazebo reference="wheel1_link">
+<mu1>0.2</mul>
+<mu2>0.2</mul>
+<material>Gazebo/Yellow</material>
+</gazebo>
+
+
+<gazebo reference="wheel2_link">
+<mu1>0.2</mul>
+<mu2>0.2</mul>
+<material>Gazebo/Yellow</material>
+</gazebo>
+
+
+<gazebo reference="caster _link">
+<mu1>0.000002</mul>
+<mu2>0.000002</mul>
+<material>Gazebo/Blue</material>
+</gazebo>
+
+
+ 
+<!-- Controller for the differential drive robot -->
+<gazebo>
+<plugin name='diff_drive' filename='libgazebo_ros_diff_drive.so'>
+
+    <ros>
+        <namespace> </namespace>
+    </ros>
+
+    <!--Number of wheel pairs-->
+    <num_wheel_pairs>1</num_wheel_pairs>
+
+
+   
+    <!--Wheels0-->
+    <left_joint>wheel2_joint</left_joint>
+    <right_joint>wheel1_joint</right_joint>
+
+    <!--kinematics-->
+    <wheel_separation>${body_link_dim+wheel_link_length}</wheel_separation>
+
+    <wheel_diameters>${wheel_link_radius}</wheel_diamter>
+    
