@@ -9,7 +9,7 @@ import xacro
 
 def generate_launch_description():
 
-    #this name has to math the robot name in the Xacro file
+    # This name has to match the robot name in the Xacro file
     robotXacroName = 'differential_drive_robot'
 
     namePackage = 'mobile_dd_robot'
@@ -20,43 +20,43 @@ def generate_launch_description():
 
     pathModelFile = os.path.join(get_package_share_directory(namePackage), modeFileRelativePath)
 
-    #this is the absolutle path to the world model
+    # This is the absolute path to the world model
     pathWorldFile = os.path.join(get_package_share_directory(namePackage), worldFileRelativePath)
 
     robotDescription = xacro.process_file(pathModelFile).toxml()
 
-    #this is the launch file from the gazebo_ros package
-    gazebo_rosPackageLaunch = PythonLaunchDescriptionSource(os.path.join(get_package_share_directory('gazebo_ros'),
-                                                                         'launch', 'gazebo.launch.py'))
-    #this is the launch description  
-    gazebo_rosPackageLaunch= PythonLaunchDescriptionSource(os.path.join(get_package_share_directory('gazebo_ros'),
-                                                                        'launch', 'gazebo.launch.py'))
+    # This is the launch file from the gazebo_ros package
+    gazebo_rosPackageLaunch = PythonLaunchDescriptionSource(
+        os.path.join(get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py')
+    )
     
-    #this is the launch description
-    gazeboLaunch = IncludeLaunchDescription(gazebo_rosPackageLaunch, launch_arguments={'world': pathWorldFile}.items())
+    # This is the launch description
+    gazeboLaunch = IncludeLaunchDescription(
+        gazebo_rosPackageLaunch, launch_arguments={'world': pathWorldFile}.items()
+    )
 
-    #here, we create a gazebo_ros Node
-    spawnModelNode = Node(package='gazebo_ros', executable='spawn_entity.py',
-                          arguments=['-topic', 'robot_description', '-entity', robotXacroName], output='screen')
+    # Here, we create a gazebo_ros Node
+    spawnModelNode = Node(
+        package='gazebo_ros', executable='spawn_entity.py',
+        arguments=['-topic', 'robot_description', '-entity', robotXacroName], output='screen'
+    )
     
-    #Robot State Publisher Node
+    # Robot State Publisher Node
     nodeRobotStatePublisher = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
         output='screen',
-        parameters=[{'robot_description': robotDescription,
-                    'use_sim_time': True}]
+        parameters=[{'robot_description': robotDescription, 'use_sim_time': True}]
     )   
 
-    #Here we create an empty launch description object
+    # Here we create an empty launch description object
     launchDescriptionObject = LaunchDescription()
 
-    # we add gazeboLaunch
+    # We add gazeboLaunch
     launchDescriptionObject.add_action(gazeboLaunch)
 
-    #we add two nodes
+    # We add two nodes
     launchDescriptionObject.add_action(spawnModelNode)
     launchDescriptionObject.add_action(nodeRobotStatePublisher)
     
     return launchDescriptionObject
-

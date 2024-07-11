@@ -9,28 +9,28 @@
 <!-- http://classic.gazebosim.org/tutorials?tut=ros_urdf&cat=connect_ros -->
 <!--mu1 and mu2 are friction coefficients-->
 <gazebo reference="body_link">
-<mu1>0.2</mul>
-<mu2>0.2</mul>
+<mu1>0.2</mu1>
+<mu2>0.2</mu2>
 <material>Gazebo/Black</material>
 </gazebo>
 
 <gazebo reference="wheel1_link">
-<mu1>0.2</mul>
-<mu2>0.2</mul>
+<mu1>0.2</mu1>
+<mu2>0.2</mu2>
 <material>Gazebo/Yellow</material>
 </gazebo>
 
 
 <gazebo reference="wheel2_link">
-<mu1>0.2</mul>
-<mu2>0.2</mul>
+<mu1>0.2</mu1>
+<mu2>0.2</mu2>
 <material>Gazebo/Yellow</material>
 </gazebo>
 
 
 <gazebo reference="caster _link">
-<mu1>0.000002</mul>
-<mu2>0.000002</mul>
+<mu1>0.000002</mu1>
+<mu2>0.000002</mu2>
 <material>Gazebo/Blue</material>
 </gazebo>
 
@@ -56,7 +56,7 @@
     <!--kinematics-->
     <wheel_separation>${body_link_dim+wheel_link_length}</wheel_separation>
 
-    <wheel_diameters>${wheel_link_radius}</wheel_diamter>
+    <wheel_diameter>${wheel_link_radius}</wheel_diamter>
 
     <!-- limits -->
     <max_wheel_torque>1000</max_wheel_torque>
